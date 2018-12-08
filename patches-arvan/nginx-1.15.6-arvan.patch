@@ -11,10 +11,11 @@ index e98630c..479754d 100644
  
  #ifdef NGX_BUILD
  #define NGINX_VER_BUILD    NGINX_VER " (" NGX_BUILD ")"
-@@ -20,6 +20,7 @@
+@@ -20,7 +20,7 @@
+ #define NGINX_VER_BUILD    NGINX_VER
  #endif
  
- #define NGINX_VAR          "NGINX"
+-#define NGINX_VAR          "NGINX"
 +#define NGINX_VAR          "ARVANCLOUD(NGINX)"
  #define NGX_OLDPID_EXT     ".oldbin"
  
