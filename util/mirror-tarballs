@@ -431,16 +431,17 @@ patch -p1 < $root/patches/nginx-$main_ver-socket_cloexec.patch || exit 1
 echo
 
 
-echo "$info_txt applying the aync patch for nginx"
+echo "$info_txt ARVAN: applying the aync patch for nginx"
 patch -p1 < $root/patches-arvan/nginx-$main_ver-async.patch || exit 1
 echo
 
-# find . | grep -i "\.orig" | xargs rm
-
-echo "$info_txt applying the Arvan patch for nginx"
+echo "$info_txt ARVAN: applying the Arvan patch for nginx"
 patch -p1 < $root/patches-arvan/nginx-$main_ver-arvan.patch || exit 1
 echo
 
+echo "$info_txt ARVAN: applying patch for create temp folder buxfix" 
+patch -p1 < $root/patches-arvan/nginx-$main_ver-temp_folder.patch || exit 1
+echo
 
 cp $root/html/index.html docs/html/ || exit 1
 cp $root/html/50x.html docs/html/ || exit 1

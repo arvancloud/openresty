@@ -1,0 +1,21 @@
+diff --git a/src/core/ngx_file.c b/src/core/ngx_file.c
+index 56780303..5a91ddb3 100644
+--- a/src/core/ngx_file.c
++++ b/src/core/ngx_file.c
+@@ -230,6 +230,16 @@ ngx_create_temp_file(ngx_file_t *file, ngx_path_t *path, ngx_pool_t *pool,
+             return NGX_ERROR;
+         }
+ 
++        if (ngx_create_dir(path->name.data, 0700) == NGX_FILE_ERROR) {
++            err = ngx_errno;
++             if (err != NGX_EEXIST) {
++                ngx_log_error(NGX_LOG_CRIT, file->log, err,
++                              ngx_create_dir_n " \"%s\" failed",
++                                                         path->name.data);
++                return NGX_ERROR;
++            }
++        }
++
+         if (ngx_create_path(file, path) == NGX_ERROR) {
+             return NGX_ERROR;
+         }
