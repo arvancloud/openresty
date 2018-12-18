@@ -37,9 +37,7 @@ script:
   - cd $ROOT
   - git clone https://github.com/openresty/test-nginx
   - cd test-nginx 
-  - y | perl Makefile.PL
-  - make
-  - sudo make install
+  - sudo cpan .
   - cd $ROOT/openresty-$VERSION/bundle/array-var-nginx-module-0.05
   - prove t/.
   - cd $ROOT/openresty-$VERSION/bundle/echo-nginx-module-0.61
@@ -62,3 +60,6 @@ script:
   - prove t/mixed.t
   - prove t/request-info.t
   - prove t/sleep.t 
+  
+  - cd $ROOT/openresty-$VERSION/bundle/form-input-nginx-module-0.12
+  - prove t/.
