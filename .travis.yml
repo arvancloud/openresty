@@ -14,9 +14,9 @@ env:
   
 before_install:
   - sudo apt-get update
-  - sudo apt-get install dos2unix
+  - sudo apt-get install dos2unix curl
   - mkdir -p /tmp
-  - curl -fsSL https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz -o /tmp/openssl.tar.gz
+  - curl -fsSL https://www.openssl.org/source/openssl-1.1.0j.tar.gz -o /tmp/openssl.tar.gz
   - tar -C /opt/openssl -xzf /tmp/openssl.tar.gz --strip-components 1
   - cd /opt/openssl && \
     ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic && \
