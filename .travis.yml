@@ -10,11 +10,18 @@ os:
 
 env:
   - VERSION=1.15.6.1rc0
+  - OPENSSL_VER=1.1.0j
   
 before_install:
   - sudo apt-get update
   - sudo apt-get install dos2unix
-  - sudo apt-get install openssl
+  - curl -fsSL https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz -o /tmp/openssl.tar.gz
+  - tar -C /opt/openssl -xzf /tmp/openssl.tar.gz --strip-components 1
+  - cd /opt/openssl && \
+    ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic && \
+    make && \
+    sudo make install
+
   - sudo apt-get install libssl-dev
   - make
 
