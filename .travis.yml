@@ -8,8 +8,6 @@ services:
 os:
   - linux
 
-sudo: required
-
 env:
   - VERSION=1.15.6.1rc0
   
@@ -28,11 +26,11 @@ script:
   - cd /opt/openssl
   - ls 
   - ./config
-  - make 1> /dev/null
-  - make install_sw 1> /dev/null
-  - ldconfig
+  - sudo make 1> /dev/null
+  - sudo make install_sw 1> /dev/null
+  - sudo ldconfig
   - cd $ROOT
   - make
   - cd $ROOT/openresty-$VERSION
-  - ./configure
-  - make
+  - sudo ./configure
+  - sudo make
