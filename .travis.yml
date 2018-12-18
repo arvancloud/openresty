@@ -25,9 +25,10 @@ script:
   - tar -C /opt/openssl -xzf /tmp/openssl.tar.gz --strip-components 1
   - cd /opt/openssl
   - ls 
-  - ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic
+  - ./config
   - sudo make 1> /dev/null
   - sudo make install_sw 1> /dev/null
+  - ldconfig
   - cd $ROOT
   - make
   - cd $ROOT/openresty-$VERSION
