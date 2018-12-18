@@ -8,13 +8,18 @@ services:
 os:
   - linux
 
+env:
+  - VERSION=1.15.6.1rc0
+  
 before_install:
   - sudo apt-get update
   - sudo apt-get install dos2unix
+  - sudo apt-get install openssl
+  - sudo apt-get install libssl-dev
   - make
 
 script:
-  - cd openresty-1.15.6.1rc0
+  - cd openresty-$VERSION
   - ./configure
-  - make
-  - make install
+  - sudo make
+  - sudo make install
