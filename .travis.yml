@@ -23,7 +23,7 @@ before_install:
   - cd /opt/openssl
   - ls 
   - ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic
-  - make
+  - sudo make 1> /dev/null
   - sudo make install
   - sudo apt-get install libssl-dev
   - make
