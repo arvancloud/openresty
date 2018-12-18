@@ -20,11 +20,11 @@ before_install:
   - mkdir -p /opt/openssl
   - curl -fsSL https://www.openssl.org/source/openssl-1.1.0j.tar.gz -o /tmp/openssl.tar.gz
   - tar -C /opt/openssl -xzf /tmp/openssl.tar.gz --strip-components 1
-  - cd /opt/openssl && \
-    ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic && \
-    make && \
-    sudo make install
-
+  - cd /opt/openssl
+  - ls 
+  - ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic
+  - make
+  - sudo make install
   - sudo apt-get install libssl-dev
   - make
 
