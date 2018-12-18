@@ -37,6 +37,6 @@ script:
   - cd $ROOT
   - git clone https://github.com/openresty/test-nginx
   - cd test-nginx 
-  - perl Makefile.PL
+  - y | perl Makefile.PL
   - make
   - sudo make install
