@@ -34,6 +34,7 @@ script:
   - cd $ROOT/openresty-$VERSION
   - sudo ./configure
   - sudo make
+  - sudo make install
   - cd $ROOT
   - git clone https://github.com/openresty/test-nginx
   - cd test-nginx 
