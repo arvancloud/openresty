@@ -9,6 +9,7 @@ os:
   - linux
 
 before_install:
+  - sudo apt install dos2unix
   - make
 
 script:
