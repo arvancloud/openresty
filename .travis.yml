@@ -13,7 +13,7 @@ env:
   
 before_install:
   - sudo apt-get update
-  - sudo apt-get install dos2unix curl
+  - sudo apt-get install dos2unix curl perl
 
 
 script:
@@ -34,3 +34,9 @@ script:
   - cd $ROOT/openresty-$VERSION
   - sudo ./configure
   - sudo make
+  - cd $ROOT
+  - git clone https://github.com/openresty/test-nginx
+  - cd test-nginx 
+  - perl Makefile.PL
+  - make
+  - sudo make install
