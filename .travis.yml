@@ -1,4 +1,15 @@
+sudo: required
+
 language: c
-compiler:
-  - clang
-  - gcc
+
+services:
+  - docker
+
+os:
+  - linux
+
+before_install:
+  - make
+
+script:
+  - make build
