@@ -13,6 +13,7 @@ env:
   - OPENSSL_VER=1.1.0j
   
 before_install:
+  - ROOT=$(pwd)
   - sudo apt-get update
   - sudo apt-get install dos2unix curl
   - mkdir -p /tmp
@@ -29,7 +30,7 @@ before_install:
   - make
 
 script:
-  - cd openresty-$VERSION
+  - cd $ROOT/openresty-$VERSION
   - ./configure
   - sudo make
   - sudo make install
