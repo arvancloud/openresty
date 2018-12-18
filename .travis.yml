@@ -26,12 +26,11 @@ script:
   - cd /opt/openssl
   - ls 
   - ./config
-  - sudo make 1> /dev/null
-  - sudo make install_sw 1> /dev/null
+  - make 1> /dev/null
+  - make install_sw 1> /dev/null
   - ldconfig
   - cd $ROOT
   - make
   - cd $ROOT/openresty-$VERSION
   - ./configure
-  - sudo make
-  - sudo make install
+  - make
