@@ -51,7 +51,6 @@ script:
   - prove t/incr.t
   - prove t/request-body.t
   - prove t/status.t
-  - prove t/echo-before-body.t
   - prove t/exec.t
   - prove t/if.t
   - prove t/mixed.t
