@@ -15,6 +15,7 @@ env:
 before_install:
   - sudo apt-get update
   - sudo apt-get install dos2unix
+  - mkdir -p /tmp
   - curl -fsSL https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz -o /tmp/openssl.tar.gz
   - tar -C /opt/openssl -xzf /tmp/openssl.tar.gz --strip-components 1
   - cd /opt/openssl && \
