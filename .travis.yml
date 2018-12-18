@@ -37,7 +37,7 @@ script:
   - cd $ROOT
   - git clone https://github.com/openresty/test-nginx
   - cd test-nginx 
-  - sudo cpan .
+  - y | sudo cpan .
   - cd $ROOT/openresty-$VERSION/bundle/array-var-nginx-module-0.05
   - prove t/.
   - cd $ROOT/openresty-$VERSION/bundle/echo-nginx-module-0.61
