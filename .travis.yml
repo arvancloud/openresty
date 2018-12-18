@@ -26,7 +26,6 @@ before_install:
   - ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic
   - sudo make 1> /dev/null
   - sudo make install 1> /dev/null
-  - make
 
 script:
   - cd $ROOT/openresty-$VERSION
