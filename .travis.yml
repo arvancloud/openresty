@@ -12,10 +12,12 @@ env:
   - VERSION=1.15.6.1rc0
   
 before_install:
-  - OPENSSL_VER=1.1.0j
-  - ROOT=$(pwd)
   - sudo apt-get update
   - sudo apt-get install dos2unix curl
+
+
+script:
+  - ROOT=$(pwd)
   - mkdir -p /tmp
   - mkdir -p /opt
   - mkdir -p /opt/openssl
@@ -26,8 +28,8 @@ before_install:
   - ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic
   - sudo make 1> /dev/null
   - sudo make install_sw 1> /dev/null
-
-script:
+  - cd $ROOT
+  - make
   - cd $ROOT/openresty-$VERSION
   - ./configure
   - sudo make
