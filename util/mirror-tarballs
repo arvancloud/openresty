@@ -430,10 +430,9 @@ echo "$info_txt applying the socket_cloexec patch for nginx"
 patch -p1 < $root/patches/nginx-$main_ver-socket_cloexec.patch || exit 1
 echo
 
-
-# echo "$info_txt ARVAN: applying the aync patch for nginx"
-# patch -p1 < $root/patches-arvan/nginx-$main_ver-async.patch || exit 1
-# echo
+echo "$info_txt ARVAN: applying the aync patch for nginx"
+patch -p1 < $root/patches-arvan/nginx-$main_ver-async.patch || exit 1
+echo
 
 echo "$info_txt ARVAN: applying the 001 arvan patch"
 patch -p1 < $root/patches-arvan/0001-nginx-$main_ver-static-names-changes-to-arvancloud.patch || exit 1
@@ -458,13 +457,7 @@ echo
 echo "$info_txt ARVAN: applying the 006 arvan patch"
 patch -p1 < $root/patches-arvan/0006-nginx-$main_ver-support-variable-slice-directive.patch || exit 1
 echo
-# echo "$info_txt ARVAN: applying the Arvan patch for nginx"
-# patch -p1 < $root/patches-arvan/nginx-$main_ver-arvan.patch || exit 1
-# echo
 
-echo "$info_txt ARVAN: applying patch for create temp folder buxfix" 
-patch -p1 < $root/patches-arvan/nginx-$main_ver-temp_folder.patch || exit 1
-echo
 
 cp $root/html/index.html docs/html/ || exit 1
 cp $root/html/50x.html docs/html/ || exit 1
