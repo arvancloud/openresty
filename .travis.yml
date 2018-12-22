@@ -1,0 +1,61 @@
+sudo: required
+
+language: c
+
+services:
+  - docker
+
+os:
+  - linux
+
+env:
+  - VERSION=1.15.6.1rc0
+  
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install dos2unix curl perl
+
+
+script:
+  - ROOT=$(pwd)
+  - mkdir -p /tmp
+  - mkdir -p /opt
+  - mkdir -p /opt/openssl
+  - curl -fsSL https://www.openssl.org/source/openssl-1.1.0j.tar.gz -o /tmp/openssl.tar.gz
+  - tar -C /opt/openssl -xzf /tmp/openssl.tar.gz --strip-components 1
+  - cd /opt/openssl
+  - ls 
+  - ./config
+  - sudo make 1> /dev/null
+  - sudo make install_sw 1> /dev/null
+  - sudo ldconfig
+  - cd $ROOT
+  - make
+  - cd $ROOT/openresty-$VERSION
+  - sudo ./configure
+  - sudo make
+  - sudo make install
+  - export PATH=/usr/local/openresty/nginx/sbin:$PATH
+  - cd $ROOT
+  - git clone https://github.com/openresty/test-nginx
+  - cd test-nginx 
+  - yes | sudo cpan .
+  - cd $ROOT/openresty-$VERSION/bundle/array-var-nginx-module-0.05
+  - prove t/.
+  - cd $ROOT/openresty-$VERSION/bundle/echo-nginx-module-0.61
+  - prove t/abort-parent.t
+  - prove t/echo-duplicate.t
+  - prove t/echo-timer.t
+  - prove t/filter-used.t 
+  - prove t/gzip.t
+  - prove t/incr.t
+  - prove t/request-body.t
+  - prove t/status.t
+  - prove t/exec.t
+  - prove t/if.t
+  - prove t/mixed.t
+  - prove t/request-info.t
+  - prove t/sleep.t 
+  
+  - cd $ROOT/openresty-$VERSION/bundle/form-input-nginx-module-0.12
+  - prove t/.
