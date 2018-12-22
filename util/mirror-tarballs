@@ -430,9 +430,9 @@ echo "$info_txt applying the socket_cloexec patch for nginx"
 patch -p1 < $root/patches/nginx-$main_ver-socket_cloexec.patch || exit 1
 echo
 
-echo "$info_txt ARVAN: applying the aync patch for nginx"
-patch -p1 < $root/patches-arvan/nginx-$main_ver-async.patch || exit 1
-echo
+# echo "$info_txt ARVAN: applying the aync patch for nginx"
+# patch -p1 < $root/patches-arvan/nginx-$main_ver-async.patch || exit 1
+# echo
 
 echo "$info_txt ARVAN: applying the 001 arvan patch"
 patch -p1 < $root/patches-arvan/0001-nginx-$main_ver-static-names-changes-to-arvancloud.patch || exit 1
