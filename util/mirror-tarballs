@@ -435,9 +435,32 @@ echo "$info_txt ARVAN: applying the aync patch for nginx"
 patch -p1 < $root/patches-arvan/nginx-$main_ver-async.patch || exit 1
 echo
 
-echo "$info_txt ARVAN: applying the Arvan patch for nginx"
-patch -p1 < $root/patches-arvan/nginx-$main_ver-arvan.patch || exit 1
+echo "$info_txt ARVAN: applying the 001 arvan patch"
+patch -p1 < $root/patches-arvan/0001-nginx-$main_ver-static-names-changes-to-arvancloud.patch || exit 1
 echo
+
+echo "$info_txt ARVAN: applying the 002 arvan patch"
+patch -p1 < $root/patches-arvan/0002-nginx-$main_ver-seprate-cache-directoryby-host-header.patch || exit 1
+echo
+
+echo "$info_txt ARVAN: applying the 003 arvan patch"
+patch -p1 < $root/patches-arvan/0003-nginx-$main_ver-support-variable-proxy-cache-valid-directive.patch || exit 1
+echo
+
+echo "$info_txt ARVAN: applying the 004 arvan patch"
+patch -p1 < $root/patches-arvan/0004-nginx-$main_ver-support-variable-proxy-cache-use-stale-directive.patch || exit 1
+echo
+
+echo "$info_txt ARVAN: applying the 005 arvan patch"
+patch -p1 < $root/patches-arvan/0005-nginx-$main_ver-support-variable-proxy-ignore-headers-directive.patch || exit 1
+echo
+
+echo "$info_txt ARVAN: applying the 006 arvan patch"
+patch -p1 < $root/patches-arvan/0006-nginx-$main_ver-support-variable-slice-directive.patch || exit 1
+echo
+# echo "$info_txt ARVAN: applying the Arvan patch for nginx"
+# patch -p1 < $root/patches-arvan/nginx-$main_ver-arvan.patch || exit 1
+# echo
 
 echo "$info_txt ARVAN: applying patch for create temp folder buxfix" 
 patch -p1 < $root/patches-arvan/nginx-$main_ver-temp_folder.patch || exit 1
@@ -513,6 +536,7 @@ mv openresty-drizzle-nginx-module-* drizzle-nginx-module-$ver || exit 1
 
 #################################
 
+echo ="============================================================================================="
 ver=0.10.14rc3
 $root/util/get-tarball "https://github.com/openresty/lua-nginx-module/archive/v$ver.tar.gz" -O lua-nginx-module-$ver.tar.gz || exit 1
 tar -xzf lua-nginx-module-$ver.tar.gz || exit 1
