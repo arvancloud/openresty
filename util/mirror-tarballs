@@ -459,6 +459,12 @@ patch -p1 < $root/patches-arvan/0006-nginx-$main_ver-support-variable-slice-dire
 echo
 
 
+echo "$info_txt ARVAN: applying the 007 arvan patch"
+patch -p1 < $root/patches-arvan/0007-nginx-$main_ver-Revert-seprate-cache-directoryby-host-header.patch || exit 1
+echo
+
+
+
 cp $root/html/index.html docs/html/ || exit 1
 cp $root/html/50x.html docs/html/ || exit 1
 
@@ -529,7 +535,6 @@ mv openresty-drizzle-nginx-module-* drizzle-nginx-module-$ver || exit 1
 
 #################################
 
-echo ="============================================================================================="
 ver=0.10.14rc3
 $root/util/get-tarball "https://github.com/openresty/lua-nginx-module/archive/v$ver.tar.gz" -O lua-nginx-module-$ver.tar.gz || exit 1
 tar -xzf lua-nginx-module-$ver.tar.gz || exit 1
