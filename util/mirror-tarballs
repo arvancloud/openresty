@@ -28,10 +28,10 @@ fi
 #################################
 
 ver="$main_ver"
-$root/util/get-tarball "https://github.com/nginx/nginx/archive/release-$ver.tar.gz" -O nginx-$ver.tar.gz || exit 1
+$root/util/get-tarball "https://github.com/arvancloud/arvannginx/archive/release-$ver.$arvannginx_ver.tar.gz" -O nginx-$ver.tar.gz || exit 1
 tar -xzf nginx-$ver.tar.gz || exit 1
 
-mv nginx-release-$ver nginx-$ver 
+mv arvannginx-release-$ver.$arvannginx_ver nginx-$ver 
 cd nginx-$ver || exit 1
 mv docs/text/README .
 mv auto/configure .
@@ -430,30 +430,6 @@ echo "$info_txt applying the socket_cloexec patch for nginx"
 patch -p1 < $root/patches/nginx-$main_ver-socket_cloexec.patch || exit 1
 echo
 
-echo "$info_txt ARVAN: applying the aync patch for nginx"
-patch -p1 < $root/patches-arvan/nginx-$main_ver-async.patch || exit 1
-echo
-
-echo "$info_txt ARVAN: applying the 001 arvan patch"
-patch -p1 < $root/patches-arvan/0001-nginx-$main_ver-static-names-changes-to-arvancloud.patch || exit 1
-echo
-
-echo "$info_txt ARVAN: applying the 002 arvan patch"
-patch -p1 < $root/patches-arvan/0002-nginx-$main_ver-support-variable-proxy-cache-valid-directive.patch || exit 1
-echo
-
-echo "$info_txt ARVAN: applying the 003 arvan patch"
-patch -p1 < $root/patches-arvan/0003-nginx-$main_ver-support-variable-proxy-cache-use-stale-directive.patch || exit 1
-echo
-
-echo "$info_txt ARVAN: applying the 004 arvan patch"
-patch -p1 < $root/patches-arvan/0004-nginx-$main_ver-support-variable-proxy-ignore-headers-directive.patch || exit 1
-echo
-
-echo "$info_txt ARVAN: applying the 005 arvan patch"
-patch -p1 < $root/patches-arvan/0005-nginx-$main_ver-support-variable-slice-directive.patch || exit 1
-echo
-
 cp $root/html/index.html docs/html/ || exit 1
 cp $root/html/50x.html docs/html/ || exit 1
 
@@ -637,7 +613,7 @@ mv openresty-redis2-nginx-module-* redis2-nginx-module-$ver || exit 1
 
 #################################
 
-ver=0.22rc4
+ver=0.22rc7
 $root/util/get-tarball "https://github.com/openresty/resty-cli/tarball/v$ver" -O resty-cli-$ver.tar.gz || exit 1
 tar -xzf resty-cli-$ver.tar.gz || exit 1
 mv openresty-resty-cli-* resty-cli-$ver || exit 1
