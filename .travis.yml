@@ -42,22 +42,22 @@ script:
   - yes | sudo cpan .
   - cd $ROOT/openresty-$VERSION/bundle/
   - ls -l
-  - cd $ROOT/openresty-$VERSION/bundle/array-var-nginx-module-0.05
-  - prove t/.
-  - cd $ROOT/openresty-$VERSION/bundle/echo-nginx-module-0.61
-  - prove t/abort-parent.t
-  - prove t/echo-duplicate.t
-  - prove t/echo-timer.t
-  - prove t/filter-used.t 
-  - prove t/gzip.t
-  - prove t/incr.t
-  - prove t/request-body.t
-  - prove t/status.t
-  - prove t/exec.t
-  - prove t/if.t
-  - prove t/mixed.t
-  - prove t/request-info.t
-  - prove t/sleep.t 
+#   - cd $ROOT/openresty-$VERSION/bundle/array-var-nginx-module-0.05
+#   - prove t/.
+#   - cd $ROOT/openresty-$VERSION/bundle/echo-nginx-module-0.61
+#   - prove t/abort-parent.t
+#   - prove t/echo-duplicate.t
+#   - prove t/echo-timer.t
+#   - prove t/filter-used.t 
+#   - prove t/gzip.t
+#   - prove t/incr.t
+#   - prove t/request-body.t
+#   - prove t/status.t
+#   - prove t/exec.t
+#   - prove t/if.t
+#   - prove t/mixed.t
+#   - prove t/request-info.t
+#   - prove t/sleep.t 
   
-  - cd $ROOT/openresty-$VERSION/bundle/form-input-nginx-module-0.12
-  - prove t/.
+#   - cd $ROOT/openresty-$VERSION/bundle/form-input-nginx-module-0.12
+#   - prove t/.
