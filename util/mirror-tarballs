@@ -142,12 +142,12 @@ echo "$info_txt applying the upstream-pipelining patch for nginx"
 patch -p1 < $root/patches/nginx-$main_ver-upstream_pipelining.patch || exit 1
 echo
 
-echo "$info_txt applying the server_header patch for nginx"
-cp $root/patches/nginx-$main_ver-server_header.patch server_header.patch || exit 1
-sed $"s/NGINX_VERSION \".unknown\"/NGINX_VERSION \".$minor_ver\"/" server_header.patch \
-    > server_header.patch.tmp && mv -f server_header.patch.tmp server_header.patch || exit 1
-patch -p1 < server_header.patch || exit 1
-echo
+# echo "$info_txt applying the server_header patch for nginx"
+# cp $root/patches/nginx-$main_ver-server_header.patch server_header.patch || exit 1
+# sed $"s/NGINX_VERSION \".unknown\"/NGINX_VERSION \".$minor_ver\"/" server_header.patch \
+#     > server_header.patch.tmp && mv -f server_header.patch.tmp server_header.patch || exit 1
+# patch -p1 < server_header.patch || exit 1
+# echo
 
 #patch -p1 < $root/patches/nginx-$main_ver-redirect_memcpy_overlap.patch || exit 1
 
