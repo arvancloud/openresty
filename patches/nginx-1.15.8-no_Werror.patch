@@ -1,6 +1,6 @@
-diff -urp nginx-1.15.6/auto/cc/clang nginx-1.15.6-patched/auto/cc/clang
---- nginx-1.15.6/auto/cc/clang	2014-03-04 03:39:24.000000000 -0800
-+++ nginx-1.15.6-patched/auto/cc/clang	2014-03-13 20:54:26.241413360 -0700
+diff -urp nginx-1.15.8/auto/cc/clang nginx-1.15.8-patched/auto/cc/clang
+--- nginx-1.15.8/auto/cc/clang	2014-03-04 03:39:24.000000000 -0800
++++ nginx-1.15.8-patched/auto/cc/clang	2014-03-13 20:54:26.241413360 -0700
 @@ -89,7 +89,7 @@ CFLAGS="$CFLAGS -Wconditional-uninitiali
  CFLAGS="$CFLAGS -Wno-unused-parameter"
  
@@ -10,9 +10,9 @@ diff -urp nginx-1.15.6/auto/cc/clang nginx-1.15.6-patched/auto/cc/clang
  
  # debug
  CFLAGS="$CFLAGS -g"
-diff -urp nginx-1.15.6/auto/cc/gcc nginx-1.15.6-patched/auto/cc/gcc
---- nginx-1.15.6/auto/cc/gcc	2014-03-04 03:39:24.000000000 -0800
-+++ nginx-1.15.6-patched/auto/cc/gcc	2014-03-13 20:54:13.301355329 -0700
+diff -urp nginx-1.15.8/auto/cc/gcc nginx-1.15.8-patched/auto/cc/gcc
+--- nginx-1.15.8/auto/cc/gcc	2014-03-04 03:39:24.000000000 -0800
++++ nginx-1.15.8-patched/auto/cc/gcc	2014-03-13 20:54:13.301355329 -0700
 @@ -168,7 +168,7 @@ esac
  
  
@@ -22,9 +22,9 @@ diff -urp nginx-1.15.6/auto/cc/gcc nginx-1.15.6-patched/auto/cc/gcc
  
  # debug
  CFLAGS="$CFLAGS -g"
-diff -urp nginx-1.15.6/auto/cc/icc nginx-1.15.6-patched/auto/cc/icc
---- nginx-1.15.6/auto/cc/icc	2014-03-04 03:39:24.000000000 -0800
-+++ nginx-1.15.6-patched/auto/cc/icc	2014-03-13 20:54:13.301355329 -0700
+diff -urp nginx-1.15.8/auto/cc/icc nginx-1.15.8-patched/auto/cc/icc
+--- nginx-1.15.8/auto/cc/icc	2014-03-04 03:39:24.000000000 -0800
++++ nginx-1.15.8-patched/auto/cc/icc	2014-03-13 20:54:13.301355329 -0700
 @@ -115,7 +115,7 @@ case "$NGX_ICC_VER" in
  esac
  

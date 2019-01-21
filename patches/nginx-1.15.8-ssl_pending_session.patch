@@ -1,5 +1,5 @@
---- nginx-1.15.6/src/event/ngx_event_openssl.c	2016-07-17 19:20:30.411137606 -0700
-+++ nginx-1.15.6-patched/src/event/ngx_event_openssl.c	2016-07-19 16:53:35.539768477 -0700
+--- nginx-1.15.8/src/event/ngx_event_openssl.c	2016-07-17 19:20:30.411137606 -0700
++++ nginx-1.15.8-patched/src/event/ngx_event_openssl.c	2016-07-19 16:53:35.539768477 -0700
 @@ -1307,7 +1307,12 @@ ngx_ssl_handshake(ngx_connection_t *c)
      }
  
