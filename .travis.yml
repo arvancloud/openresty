@@ -9,7 +9,7 @@ os:
   - linux
 
 env:
-  - VERSION=1.15.6rc0
+  - VERSION=1.15.8.rc0
   
 before_install:
   - sudo apt-get update
