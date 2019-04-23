@@ -188,6 +188,7 @@ for my $opt (@ARGV) {
 
     } elsif ($opt eq '--without-lua_tablepool') {
         $resty_opts{no_lua_tablepool} = 1;
+        $resty_opts{no_lua_resty_shell} = 1;
 
     } elsif ($opt eq '--without-lua_redis_parser') {
         $resty_opts{no_lua_redis_parser} = 1;
@@ -221,6 +222,13 @@ for my $opt (@ARGV) {
 
     } elsif ($opt eq '--without-lua_resty_lrucache') {
         $resty_opts{no_lua_resty_lrucache} = 1;
+
+    } elsif ($opt eq '--without-lua_resty_signal') {
+        $resty_opts{no_lua_resty_signal} = 1;
+        $resty_opts{no_lua_resty_shell} = 1;
+
+    } elsif ($opt eq '--without-lua_resty_shell') {
+        $resty_opts{no_lua_resty_shell} = 1;
 
     } elsif ($opt eq '--without-lua_resty_core') {
         $resty_opts{no_lua_resty_core} = 1;
@@ -345,6 +353,11 @@ for my $opt (@ARGV) {
     } else {
         die "Invalid option $opt\n";
     }
+}
+
+if ($platform eq 'msys') {
+    $resty_opts{no_lua_resty_signal} = 1;
+    $resty_opts{no_lua_resty_shell} = 1;
 }
 
 print "platform: $platform ($OS)\n";
@@ -1009,6 +1022,44 @@ _EOC_
                 "\$(MAKE) install$extra_opts";
         }
 
+        unless ($opts->{no_lua_resty_signal}) {
+            my $dir = auto_complete 'lua-resty-signal';
+
+            my $extra_opts =
+                " DESTDIR=\$(DESTDIR) LUA_INCLUDE_DIR=$ENV{LUAJIT_INC} " .
+                "LUA_LIB_DIR=$lualib_prefix";
+
+            if ($on_solaris) {
+                $extra_opts .= " INSTALL=$root_dir/build/install";
+            }
+
+            if ($opts->{debug}) {
+                $extra_opts .= " CFLAGS=\"-g -O -Wall -fpic\"";
+            }
+
+            if ($platform eq 'macosx') {
+                $extra_opts .=
+                    " LDFLAGS='-bundle -undefined dynamic_lookup'";
+
+            } elsif ($platform eq 'msys') {
+                my $luajit_root = File::Spec->rel2abs("luajit-root");
+                $extra_opts .= " LDFLAGS=\"-shared -L$luajit_root -llua51\"";
+            }
+
+            if (defined $cc) {
+                $extra_opts .= " CC='$cc'";
+
+            } else {
+                $extra_opts .= " CC=cc";
+            }
+
+            push @make_cmds, "cd $root_dir/build/$dir && " .
+                "\$(MAKE)$extra_opts";
+
+            push @make_install_cmds, "cd $root_dir/build/$dir && " .
+                "\$(MAKE) install$extra_opts";
+        }
+
         unless ($opts->{no_lua_redis_parser}) {
             my $dir = auto_complete 'lua-redis-parser';
             if (!defined $dir) {
@@ -1113,7 +1164,8 @@ _EOC_
         }
 
         for my $key (qw(dns memcached redis mysql string upload websocket
-                        lock lrucache core upstream_healthcheck limit_traffic))
+                        lock lrucache core upstream_healthcheck limit_traffic
+                        shell))
         {
             add_lua_lib($opts, "lua_resty", $key);
         }
@@ -1307,7 +1359,8 @@ _EOC_
     $msg .= <<'_EOC_';
 
   --without-lua_cjson                disable the lua-cjson library
-  --without-lua_tablepool            disable the lua-tablepool library
+  --without-lua_tablepool            disable the lua-tablepool library (and by consequence, the
+                                     lua-resty-shell library)
   --without-lua_redis_parser         disable the lua-redis-parser library
   --without-lua_rds_parser           disable the lua-rds-parser library
   --without-lua_resty_dns            disable the lua-resty-dns library
@@ -1322,6 +1375,9 @@ _EOC_
   --without-lua_resty_limit_traffic  disable the lua-resty-limit-traffic library
   --without-lua_resty_lock           disable the lua-resty-lock library
   --without-lua_resty_lrucache       disable the lua-resty-lrucache library
+  --without-lua_resty_signal         disable the lua-resty-signal library (and by consequence,
+                                     the lua-resty-shell library)
+  --without-lua_resty_shell          disable the lua-resty-shell library
   --without-lua_resty_core           disable the lua-resty-core library
 
   --with-luajit                      enable and build the bundled LuaJIT 2.1 (the default)
