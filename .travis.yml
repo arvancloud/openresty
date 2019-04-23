@@ -1,63 +1,68 @@
 sudo: required
+dist: xenial
+
+os: linux
 
 language: c
 
-services:
-  - docker
+compiler:
+  - gcc
+  - clang
 
-os:
-  - linux
+addons:
+  apt:
+    packages:
+    - axel
+    - dos2unix
+    - cpanminus
+    - libgd-dev
+
+cache:
+  directories:
+  - download-cache
 
 env:
-  - VERSION=1.15.6rc0
-  
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install dos2unix curl perl
+  global:
+    - JOBS=3
+    - PCRE_VER=8.41
+    - PCRE_PREFIX=/opt/pcre
+    - PCRE_LIB=$PCRE_PREFIX/lib
+    - PCRE_INC=$PCRE_PREFIX/include
+    - OPENSSL_PREFIX=/opt/ssl
+    - OPENSSL_LIB=$OPENSSL_PREFIX/lib
+    - OPENSSL_INC=$OPENSSL_PREFIX/include
+    - OPENRESTY_PREFIX=/opt/openresty
+  matrix:
+    - OPENSSL_VER=1.0.2q OPENSSL_OPT="" OPENSSL_PATCH_VER=1.0.2h
+    - OPENSSL_VER=1.1.0j OPENSSL_OPT="" OPENSSL_PATCH_VER=1.1.0d
 
+install:
+  - sudo cpanm --notest Test::Nginx IPC::Run3 > build.log 2>&1 || (cat build.log && exit 1)
+  - if [ ! -f download-cache/pcre-$PCRE_VER.tar.gz ]; then wget -P download-cache http://ftp.cs.stanford.edu/pub/exim/pcre/pcre-$PCRE_VER.tar.gz; fi
+  - if [ ! -f download-cache/openssl-$OPENSSL_VER.tar.gz ]; then wget -P download-cache https://www.openssl.org/source/openssl-$OPENSSL_VER.tar.gz; fi
+  - tar zxf download-cache/pcre-$PCRE_VER.tar.gz
+  - cd pcre-$PCRE_VER/
+  - ./configure --prefix=$PCRE_PREFIX --enable-jit --enable-utf --enable-unicode-properties > build.log 2>&1 || (cat build.log && exit 1)
+  - make -j$JOBS > build.log 2>&1 || (cat build.log && exit 1)
+  - sudo PATH=$PATH make install > build.log 2>&1 || (cat build.log && exit 1)
+  - cd ..
+  - tar zxf download-cache/openssl-$OPENSSL_VER.tar.gz
+  - cd openssl-$OPENSSL_VER/
+  - patch -p1 < ../patches/openssl-$OPENSSL_PATCH_VER-sess_set_get_cb_yield.patch
+  - ./config no-threads shared enable-ssl3 enable-ssl3-method $OPENSSL_OPT -g --prefix=$OPENSSL_PREFIX -DPURIFY > build.log 2>&1 || (cat build.log && exit 1)
+  - make -j$JOBS > build.log 2>&1 || (cat build.log && exit 1)
+  - sudo make PATH=$PATH install_sw > build.log 2>&1 || (cat build.log && exit 1)
+  - cd ..
+  - sudo ln -s /usr/bin/make /usr/bin/gmake
 
 script:
-  - ROOT=$(pwd)
-  - mkdir -p /tmp
-  - mkdir -p /opt
-  - mkdir -p /opt/openssl
-  - curl -fsSL https://www.openssl.org/source/openssl-1.1.0j.tar.gz -o /tmp/openssl.tar.gz
-  - tar -C /opt/openssl -xzf /tmp/openssl.tar.gz --strip-components 1
-  - cd /opt/openssl
-  - ls 
-  - ./config
-  - sudo make 1> /dev/null
-  - sudo make install_sw 1> /dev/null
-  - sudo ldconfig
-  - cd $ROOT
-  - make
-  - cd $ROOT/openresty-$VERSION
-  - sudo ./configure
-  - sudo make
-  - sudo make install
-  - export PATH=/usr/local/openresty/nginx/sbin:$PATH
-  - cd $ROOT
-  - git clone https://github.com/openresty/test-nginx
-  - cd test-nginx 
-  - yes | sudo cpan .
-  - cd $ROOT/openresty-$VERSION/bundle/
-  - ls -l
-  - cd $ROOT/openresty-$VERSION/bundle/array-var-nginx-module-0.05
-  - prove t/.
-  - cd $ROOT/openresty-$VERSION/bundle/echo-nginx-module-0.61
-  - prove t/abort-parent.t
-  - prove t/echo-duplicate.t
-  - prove t/echo-timer.t
-  - prove t/filter-used.t 
-  - prove t/gzip.t
-  - prove t/incr.t
-  - prove t/request-body.t
-  - prove t/status.t
-  - prove t/exec.t
-  - prove t/if.t
-  - prove t/mixed.t
-  - prove t/request-info.t
-  - prove t/sleep.t 
-  
-  - cd $ROOT/openresty-$VERSION/bundle/form-input-nginx-module-0.12
-  - prove t/.
+  - util/mirror-tarballs > build.log 2>&1 || (cat build.log && exit 1)
+  - cd openresty-*
+  - ./configure --prefix=$OPENRESTY_PREFIX --with-cc-opt="-I$PCRE_INC -I$OPENSSL_INC" --with-ld-opt="-L$PCRE_LIB -L$OPENSSL_LIB -Wl,-rpath,$PCRE_LIB:$OPENSSL_LIB" --with-pcre-jit --with-http_ssl_module --with-debug -j$JOBS > build.log 2>&1 || (cat build.log && exit 1)
+  - make -j$JOBS > build.log 2>&1 || (cat build.log && exit 1)
+  - sudo make install > build.log 2>&1 || (cat build.log && exit 1)
+  - cd ..
+  - export PATH=$OPENRESTY_PREFIX/bin:$OPENRESTY_PREFIX/nginx/sbin:$PATH
+  - nginx -V
+  - ldd `which nginx`|grep -E 'luajit|ssl|pcre'
+  - prove -I. -r t/
