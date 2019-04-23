@@ -29,19 +29,11 @@ fi
 
 ver="$main_ver"
 git clone https://github.com/arvancloud/arvannginx 
-echo "1"
-echo
 cd arvannginx
-echo "2"
-echo
-git checkout release-$ver.$arvannginx_ver
-echo "3"
-echo
+git checkout $ver.$arvannginx_ver
 cd ..
 mv arvannginx nginx-$ver
-echo "4"
-echo
-mv arvannginx-release-$ver.$arvannginx_ver nginx-$ver 
+# mv arvannginx-release-$ver.$arvannginx_ver nginx-$ver 
 cd nginx-$ver || exit 1
 mv docs/text/README .
 mv auto/configure .
