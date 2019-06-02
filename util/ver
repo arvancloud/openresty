@@ -5,5 +5,3 @@ minor_ver=2rc0
 arvannginx_ver=1
 version=$main_ver.$minor_ver
 echo $version
-
-
