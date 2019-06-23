@@ -2,7 +2,7 @@
 
 main_ver=1.15.12
 minor_ver=rc0
-arvannginx_ver=2
+arvannginx_ver=4
 version=$main_ver.$minor_ver
 echo $version
 
