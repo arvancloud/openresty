@@ -23,6 +23,7 @@ cache:
 
 env:
   global:
+    - VERSION=1.17.0.rc1
     - JOBS=3
     - PCRE_VER=8.41
     - PCRE_PREFIX=/opt/pcre
@@ -35,7 +36,7 @@ env:
   matrix:
     - OPENSSL_VER=1.0.2q OPENSSL_OPT="" OPENSSL_PATCH_VER=1.0.2h
     - OPENSSL_VER=1.1.0j OPENSSL_OPT="" OPENSSL_PATCH_VER=1.1.0d
-  - VERSION=1.17.0.rc1
+  
   
 before_install:
   - sudo apt-get update
