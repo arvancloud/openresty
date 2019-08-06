@@ -1,6 +1,6 @@
 #!/bin/bash
 
-main_ver=1.17.0
+main_ver=1.17.2
 minor_ver=2rc0
 arvannginx_ver=1
 version=$main_ver.$minor_ver
