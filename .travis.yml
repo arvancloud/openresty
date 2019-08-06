@@ -23,6 +23,7 @@ cache:
 
 env:
   global:
+    - VERSION=1.17.0.rc1
     - JOBS=3
     - PCRE_VER=8.41
     - PCRE_PREFIX=/opt/pcre
@@ -36,7 +37,9 @@ env:
     - OPENSSL_VER=1.0.2q OPENSSL_PATCH_VER=1.0.2h
     - OPENSSL_VER=1.1.0j OPENSSL_PATCH_VER=1.1.0d
     - OPENSSL_VER=1.1.1c OPENSSL_PATCH_VER=1.1.1c
-
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install dos2unix curl perl
 install:
   - sudo cpanm --notest Test::Nginx IPC::Run3 > build.log 2>&1 || (cat build.log && exit 1)
   - if [ ! -f download-cache/pcre-$PCRE_VER.tar.gz ]; then wget -P download-cache http://ftp.cs.stanford.edu/pub/exim/pcre/pcre-$PCRE_VER.tar.gz; fi
