@@ -69,6 +69,7 @@ script:
   - export PATH=$OPENRESTY_PREFIX/bin:$OPENRESTY_PREFIX/nginx/sbin:$PATH
   - nginx -V
   - ldd `which nginx`|grep -E 'luajit|ssl|pcre'
+<<<<<<< HEAD
   - prove -I. -r t/
   - ROOT=$(pwd)
   - mkdir -p /tmp
@@ -114,3 +115,6 @@ script:
   
   - cd $ROOT/openresty-$VERSION/bundle/form-input-nginx-module-0.12
   - prove t/.
+=======
+  - prove -r t/
+>>>>>>> 7508c1852265bd04fdb2dfd64989d4c490440f1a
