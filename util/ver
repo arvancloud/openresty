@@ -2,6 +2,6 @@
 
 main_ver=1.17.8
 minor_ver=1rc0
-arvannginx_ver=test3
+arvannginx_ver=test4
 version=$main_ver.$minor_ver
 echo $version
