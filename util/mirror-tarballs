@@ -449,6 +449,13 @@ fi
 
 rm -f *.patch || exit 1
 
+answer=`$root/util/ver-ge "$main_ver" 1.17.8`
+if [ "$answer" = "Y" ]; then
+    echo "$info_txt applying the patch for nginx security issue https://hackerone.com/reports/513236"
+    patch -p1 < $root/patches/nginx-$main_ver-static_mod_escape_loc_hdr.patch
+    echo
+fi
+
 echo "$info_txt applying the always_enable_cc_feature_tests patch to nginx"
 patch -p1 < $root/patches/nginx-$main_ver-always_enable_cc_feature_tests.patch
 echo
@@ -498,7 +505,7 @@ rm -rf no-pool-nginx-$ver
 
 #################################
 
-ver=0.62rc1
+ver=0.62
 $root/util/get-tarball "https://github.com/openresty/echo-nginx-module/tarball/v$ver" -O echo-nginx-module-$ver.tar.gz || exit 1
 tar -xzf echo-nginx-module-$ver.tar.gz || exit 1
 mv openresty-echo-nginx-module-* echo-nginx-module-$ver || exit 1
@@ -512,8 +519,8 @@ mv openresty-xss-nginx-module-* xss-nginx-module-$ver || exit 1
 
 #################################
 
-ver=0.3.1rc1
-$root/util/get-tarball "https://github.com/vision5/ngx_devel_kit/tarball/v$ver" -O ngx_devel_kit-$ver.tar.gz
+ver=0.3.1
+$root/util/get-tarball "https://github.com/simplresty/ngx_devel_kit/tarball/v$ver" -O ngx_devel_kit-$ver.tar.gz
 tar -xzf ngx_devel_kit-$ver.tar.gz || exit 1
 mv vision5-ngx_devel_kit-* ngx_devel_kit-$ver || exit 1
 
@@ -554,7 +561,7 @@ mv openresty-drizzle-nginx-module-* drizzle-nginx-module-$ver || exit 1
 
 #################################
 
-ver=0.10.16rc1
+ver=0.10.19
 $root/util/get-tarball "https://github.com/openresty/lua-nginx-module/archive/v$ver.tar.gz" -O lua-nginx-module-$ver.tar.gz || exit 1
 tar -xzf lua-nginx-module-$ver.tar.gz || exit 1
 mv lua-nginx-module-$ver ngx_lua-$ver || exit 1
@@ -568,7 +575,7 @@ mv openresty-lua-upstream-nginx-module-* ngx_lua_upstream-$ver || exit 1
 
 #################################
 
-ver=0.0.8rc1
+ver=0.0.9
 $root/util/get-tarball "https://github.com/openresty/stream-lua-nginx-module/tarball/v$ver" -O stream-lua-nginx-module-$ver.tar.gz || exit 1
 tar -xzf stream-lua-nginx-module-$ver.tar.gz || exit 1
 mv openresty-stream-lua-nginx-module-* ngx_stream_lua-$ver || exit 1
@@ -589,7 +596,7 @@ mv openresty-memc-nginx-module-* memc-nginx-module-$ver || exit 1
 
 #################################
 
-ver=0.32rc1
+ver=0.32
 $root/util/get-tarball "https://github.com/openresty/srcache-nginx-module/tarball/v$ver" -O srcache-nginx-module-$ver.tar.gz || exit 1
 tar -xzf srcache-nginx-module-$ver.tar.gz || exit 1
 mv openresty-srcache-nginx-module-* srcache-nginx-module-$ver || exit 1
@@ -667,7 +674,7 @@ mv openresty-redis2-nginx-module-* redis2-nginx-module-$ver || exit 1
 
 #################################
 
-ver=0.25rc2
+ver=0.27
 $root/util/get-tarball "https://github.com/openresty/resty-cli/tarball/v$ver" -O resty-cli-$ver.tar.gz || exit 1
 tar -xzf resty-cli-$ver.tar.gz || exit 1
 mv openresty-resty-cli-* resty-cli-$ver || exit 1
@@ -682,7 +689,7 @@ mv openresty-opm-* opm-$ver || exit 1
 
 #################################
 
-ver=2.1-20200102
+ver=2.1-20201027
 $root/util/get-tarball "https://github.com/openresty/luajit2/archive/v$ver.tar.gz" -O "LuaJIT-$ver.tar.gz" || exit 1
 tar -xzf LuaJIT-$ver.tar.gz || exit 1
 mv luajit2-* LuaJIT-$ver || exit 1
@@ -695,7 +702,7 @@ cd .. || exit 1
 
 #################################
 
-ver=2.1.0.7
+ver=2.1.0.8
 $root/util/get-tarball "https://github.com/openresty/lua-cjson/archive/$ver.tar.gz" -O "lua-cjson-$ver.tar.gz" || exit 1
 tar -xzf lua-cjson-$ver.tar.gz || exit 1
 
@@ -729,7 +736,7 @@ cd ..
 
 #################################
 
-ver=0.14
+ver=0.15
 $root/util/get-tarball "https://github.com/openresty/lua-resty-memcached/tarball/v$ver" -O "lua-resty-memcached-$ver.tar.gz" || exit 1
 tar -xzf lua-resty-memcached-$ver.tar.gz || exit 1
 mv openresty-lua-resty-memcached-* lua-resty-memcached-$ver || exit 1
@@ -740,14 +747,14 @@ cd ..
 
 #################################
 
-ver=0.28rc1
+ver=0.29
 $root/util/get-tarball "https://github.com/openresty/lua-resty-redis/tarball/v$ver" -O "lua-resty-redis-$ver.tar.gz" || exit 1
 tar -xzf lua-resty-redis-$ver.tar.gz || exit 1
 mv openresty-lua-resty-redis-* lua-resty-redis-$ver || exit 1
 
 #################################
 
-ver=0.21
+ver=0.23
 $root/util/get-tarball "https://github.com/openresty/lua-resty-mysql/tarball/v$ver" -O "lua-resty-mysql-$ver.tar.gz" || exit 1
 tar -xzf lua-resty-mysql-$ver.tar.gz || exit 1
 mv openresty-lua-resty-mysql-* lua-resty-mysql-$ver || exit 1
@@ -758,7 +765,7 @@ cd ..
 
 #################################
 
-ver=0.06
+ver=0.07
 $root/util/get-tarball "https://github.com/openresty/lua-resty-limit-traffic/tarball/v$ver" -O "lua-resty-limit-traffic-$ver.tar.gz" || exit 1
 tar -xzf lua-resty-limit-traffic-$ver.tar.gz || exit 1
 mv openresty-lua-resty-limit-traffic-* lua-resty-limit-traffic-$ver || exit 1
@@ -780,7 +787,7 @@ cd ..
 
 #################################
 
-ver=0.12rc1
+ver=0.12
 $root/util/get-tarball "https://github.com/openresty/lua-resty-string/tarball/v$ver" -O "lua-resty-string-$ver.tar.gz" || exit 1
 tar -xzf lua-resty-string-$ver.tar.gz || exit 1
 mv openresty-lua-resty-string-* lua-resty-string-$ver || exit 1
@@ -791,7 +798,7 @@ cd ..
 
 #################################
 
-ver=0.07
+ver=0.08
 $root/util/get-tarball "https://github.com/openresty/lua-resty-websocket/tarball/v$ver" -O "lua-resty-websocket-$ver.tar.gz" || exit 1
 tar -xzf lua-resty-websocket-$ver.tar.gz || exit 1
 mv openresty-lua-resty-websocket-* lua-resty-websocket-$ver || exit 1
@@ -813,7 +820,7 @@ cd ..
 
 #################################
 
-ver=0.10rc1
+ver=0.10
 $root/util/get-tarball "https://github.com/openresty/lua-resty-lrucache/tarball/v$ver" -O "lua-resty-lrucache-$ver.tar.gz" || exit 1
 tar -xzf lua-resty-lrucache-$ver.tar.gz || exit 1
 mv openresty-lua-resty-lrucache-* lua-resty-lrucache-$ver || exit 1
@@ -824,7 +831,7 @@ cd ..
 
 #################################
 
-ver=0.1.18rc1
+ver=0.1.21
 $root/util/get-tarball "https://github.com/openresty/lua-resty-core/tarball/v$ver" -O "lua-resty-core-$ver.tar.gz" || exit 1
 tar -xzf lua-resty-core-$ver.tar.gz || exit 1
 mv openresty-lua-resty-core-* lua-resty-core-$ver || exit 1
@@ -864,7 +871,7 @@ cd ..
 
 #################################
 
-ver=0.03rc1
+ver=0.03
 $root/util/get-tarball "https://github.com/openresty/lua-resty-shell/tarball/v$ver" -O "lua-resty-shell-$ver.tar.gz" || exit 1
 tar -xzf lua-resty-shell-$ver.tar.gz || exit 1
 mv openresty-lua-resty-shell-* lua-resty-shell-$ver || exit 1
@@ -942,24 +949,24 @@ for indir in bundle/*/; do
 done
 
 cd $curdir || exit 1
-find bundle -name '*.md' -delete
-find bundle -name '*.markdown' -delete
-find bundle -name '*.wiki' -delete
+#find bundle -name '*.md' -delete
+#find bundle -name '*.markdown' -delete
+#find bundle -name '*.wiki' -delete
 find bundle -name '*~' -delete
 find bundle -name '.*' -delete
 find bundle -name '*.orig' -delete
-find bundle -name '*.yml' -delete
-find bundle -name '*.ini' -delete
-find bundle -name '*.sql' -delete
-find bundle -name '*.suppress' -delete
-find bundle -name '*.rockspec' -delete
-find bundle -name '*.spec' -delete
-find bundle -name '*.json' -delete
-find bundle -name '*.pm' -delete
-find bundle -name '*.stp' -delete
-find bundle -type d -name 't' -exec rm -r {} +
-find bundle -type d -name 'web' -exec rm -r {} + # opm web/ dir
-find bundle -type d -name 'util' -exec rm -r {} +
+#find bundle -name '*.yml' -delete
+#find bundle -name '*.ini' -delete
+#find bundle -name '*.sql' -delete
+#find bundle -name '*.suppress' -delete
+#find bundle -name '*.rockspec' -delete
+#find bundle -name '*.spec' -delete
+#find bundle -name '*.json' -delete
+#find bundle -name '*.pm' -delete
+#find bundle -name '*.stp' -delete
+#find bundle -type d -name 't' -exec rm -r {} +
+#find bundle -type d -name 'web' -exec rm -r {} + # opm web/ dir
+#find bundle -type d -name 'util' -exec rm -r {} +
 
 cd $root || exit 1
 
