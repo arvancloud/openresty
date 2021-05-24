@@ -6,7 +6,7 @@ diff -ur nginx-1.9.2/src/core/nginx.h nginx-1.9.2-patched/src/core/nginx.h
  #define nginx_version         1009002
  #define NGINX_VERSION      "1.9.2"
 -#define NGINX_VER          "nginx/" NGINX_VERSION
-+#define NGINX_VER          "openresty/" NGINX_VERSION ".unknown"
++#define NGINX_VER          "arvancloud/" NGINX_VERSION ".unknown"
  
  #define NGINX_VAR          "NGINX"
  #define NGX_OLDPID_EXT     ".oldbin"
@@ -18,7 +18,7 @@ diff -ur nginx-1.9.2/src/http/ngx_http_header_filter_module.c nginx-1.9.2-patche
  
  
 -static char ngx_http_server_string[] = "Server: nginx" CRLF;
-+static char ngx_http_server_string[] = "Server: openresty" CRLF;
++static char ngx_http_server_string[] = "Server: arvancloud" CRLF;
  static char ngx_http_server_full_string[] = "Server: " NGINX_VER CRLF;
  
  

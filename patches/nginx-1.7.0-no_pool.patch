@@ -6,8 +6,8 @@ diff -upr nginx-1.7.0/src/core/nginx.h nginx-1.7.0-patched/src/core/nginx.h
  
  #define nginx_version      1007000
  #define NGINX_VERSION      "1.7.0"
--#define NGINX_VER          "openresty/" NGINX_VERSION ".unknown"
-+#define NGINX_VER          "openresty/" NGINX_VERSION ".unknown (no pool)"
+-#define NGINX_VER          "arvancloud/" NGINX_VERSION ".unknown"
++#define NGINX_VER          "arvancloud/" NGINX_VERSION ".unknown (no pool)"
  
  #define NGINX_VAR          "NGINX"
 diff -urp nginx-1.7.0/src/core/ngx_array.c nginx-1.7.0-patched/src/core/ngx_array.c
