@@ -2,6 +2,6 @@
 
 main_ver=1.19.4
 minor_ver=1
-arvannginx_ver=test
+arvannginx_ver="testslice"
 version=$main_ver.$minor_ver
 echo $version
