@@ -7,7 +7,7 @@ index 75a4a40..ed4f104 100644
  #define nginx_version      1011002
  #define NGINX_VERSION      "1.11.2"
 -#define NGINX_VER          "nginx/" NGINX_VERSION
-+#define NGINX_VER          "openresty/" NGINX_VERSION ".unknown"
++#define NGINX_VER          "arvancloud/" NGINX_VERSION ".unknown"
  
  #ifdef NGX_BUILD
  #define NGINX_VER_BUILD    NGINX_VER " (" NGX_BUILD ")"
@@ -20,7 +20,7 @@ index f000b2e..5882a66 100644
  
  
 -static char ngx_http_server_string[] = "Server: nginx" CRLF;
-+static char ngx_http_server_string[] = "Server: openresty" CRLF;
++static char ngx_http_server_string[] = "Server: arvancloud" CRLF;
  static char ngx_http_server_full_string[] = "Server: " NGINX_VER CRLF;
  
  
