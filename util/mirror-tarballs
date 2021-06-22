@@ -31,7 +31,7 @@ ver="$main_ver"
 git clone --depth 1 --branch release-$ver https://github.com/nginx/nginx.git nginx-$ver
 ln -s nginx-$ver nginx
 mv nginx/docs/text/README nginx/
-mv nginx/auto/configure nginx/
+cp nginx/auto/configure nginx/
 
 cd nginx-$ver || exit 1
 
