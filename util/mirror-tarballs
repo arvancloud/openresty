@@ -947,8 +947,8 @@ done
 
 # ArvanCloud patches
 cd $bundle_dir || exit 1
-for i in $root/patches/00*.patch; do patch -d nginx -u -p1 < $i; done;
-patch -d ngx_lua-* -u -p1 < $root/patches/1001-*.patch;
+for i in $root/patches/00*.patch; do (patch -d nginx -u -p1 < $i || exit 1); done;
+patch -d ngx_lua-* -u -p1 < $root/patches/1001-*.patch || exit 1
 
 cd $curdir || exit 1
 #find bundle -name '*.md' -delete
